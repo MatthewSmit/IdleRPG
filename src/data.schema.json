@@ -1,0 +1,85 @@
+{
+    $schema: "https://json-schema.org/draft/2020-12/schema",
+    $id: "https://idlemmo.com/data.schema.json",
+    type: "array",
+    items: {
+        oneOf: [
+            {
+                $ref: "#/definitions/class"
+            }
+        ]
+    },
+    definitions: {
+        class: {
+            type: "object",
+            additionalProperties: false,
+            properties: {
+                id: {
+                    type: "string"
+                },
+                category: {
+                    type: "string",
+                    enum: [
+                        "class"
+                    ]
+                },
+                levellingDifficulty: {
+                    type: "number",
+                    minimum: 0.1
+                },
+                levelStats: {
+                    type: "object",
+                    additionalProperties: false,
+                    properties: {
+                        strength: {
+                            $ref: "#/definitions/levelStat"
+                        },
+                        speed: {
+                            $ref: "#/definitions/levelStat"
+                        },
+                        agility: {
+                            $ref: "#/definitions/levelStat"
+                        },
+                        dexterity: {
+                            $ref: "#/definitions/levelStat"
+                        },
+                        stamina: {
+                            $ref: "#/definitions/levelStat"
+                        },
+                        wisdom: {
+                            $ref: "#/definitions/levelStat"
+                        },
+                        intelligence: {
+                            $ref: "#/definitions/levelStat"
+                        },
+                        charisma: {
+                            $ref: "#/definitions/levelStat"
+                        }
+                    }
+                }
+            },
+            required: [
+                "id",
+                "category",
+                "levellingDifficulty"
+            ]
+        },
+        levelStat: {
+            oneOf: [
+                {
+                    type: "number",
+                    minimum: 0
+                },
+                {
+                    type: "array",
+                    minItems: 2,
+                    maxItems: 2,
+                    items: {
+                        type: "number",
+                        minimum: 0
+                    }
+                }
+            ]
+        }
+    }
+}

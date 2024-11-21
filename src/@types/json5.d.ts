@@ -1,0 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// noinspection JSUnusedGlobalSymbols
+
+declare module "*.json5" {
+    const value: any;
+    export default value;
+}

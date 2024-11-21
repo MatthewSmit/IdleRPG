@@ -1,0 +1,19 @@
+{
+    "class": {
+        "fighter": "Fighter"
+    },
+    "ui": {
+        "characterChip": {
+            "description": "{{name}} the level {{level}} {{class}}",
+            "xp": "{{xp}} XP / {{requiredXp}} XP",
+            "strength": "Strength: {{stat}}",
+            "speed": "Speed: {{stat}}",
+            "agility": "Agility: {{stat}}",
+            "dexterity": "Dexterity: {{stat}}",
+            "stamina": "Stamina: {{stat}}",
+            "wisdom": "Wisdom: {{stat}}",
+            "intelligence": "Intelligence: {{stat}}",
+            "charisma": "Charisma: {{stat}}"
+        }
+    }
+}

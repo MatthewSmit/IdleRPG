@@ -1,0 +1,13 @@
+Stats:
+
+Strength = Melee/Thrown Damage
+Speed = Attack Speed/Cast Speed
+Agility = Dodge
+Dexterity = Attack Chance/Crit Chance
+Stamina = Health/Endurance
+Wisdom = Mana/Spell Chance
+Intelligence = Spell Damage/Spell Chance
+Charisma = Leadership stuff
+
+
+XP required = 10 * level * (95 + 5 * level) * (0.9 + totalLevel / 10)

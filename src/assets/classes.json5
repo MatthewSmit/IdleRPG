@@ -1,0 +1,38 @@
+[
+    {
+        id: "fighter",
+        category: "class",
+        levellingDifficulty: 1,
+        levelStats: {
+            strength: [
+                2,
+                3
+            ],
+            speed: [
+                1,
+                2
+            ],
+            agility: [
+                1,
+                2
+            ],
+            dexterity: [
+                1,
+                3
+            ],
+            stamina: [
+                2,
+                3
+            ],
+            wisdom: [
+                0,
+                1
+            ],
+            intelligence: [
+                0,
+                1
+            ],
+            charisma: 1
+        },
+    }
+]
