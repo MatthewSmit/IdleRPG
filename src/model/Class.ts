@@ -1,8 +1,12 @@
 type LevelStat = number | number[];
 
+interface SkillReference {
+    id: string;
+    maxRank: number;
+}
+
 export interface Class {
     id: string;
-    category: "class";
     levellingDifficulty: number;
     levelStats: {
         strength: LevelStat;
@@ -14,4 +18,5 @@ export interface Class {
         intelligence: LevelStat;
         charisma: LevelStat;
     };
+    skills: SkillReference[];
 }

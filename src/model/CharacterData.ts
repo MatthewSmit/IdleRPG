@@ -18,5 +18,12 @@ export interface CharacterData {
     name: string;
     currentClass: string;
     classes: { [key: string]: CharacterClassData };
+    race: string;
+    skills: {
+        [key: string]: {
+            rank: number;
+            level: number;
+        };
+    };
     stats: Stats;
 }

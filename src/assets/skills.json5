@@ -1,0 +1,163 @@
+{
+    skills: [
+        {
+            id: "abjuration",
+        },
+        {
+            id: "alteration",
+        },
+        {
+            id: "divination",
+        },
+        {
+            id: "evocation",
+        },
+        {
+            id: "summoning",
+        },
+        {
+            id: "infernal",
+        },
+        {
+            id: "necromancy",
+        },
+        {
+            id: "celestial",
+        },
+        {
+            id: "runic",
+        },
+        {
+            id: "concentration",
+        },
+        {
+            id: "magical-implements",
+        },
+        {
+            id: "meditate",
+        },
+        {
+            id: "drums",
+        },
+        {
+            id: "singing",
+        },
+        {
+            id: "flute",
+        },
+        {
+            id: "string",
+        },
+        {
+            id: "arms-master",
+        },
+        {
+            id: "sword",
+        },
+        {
+            id: "axe",
+        },
+        {
+            id: "spear",
+        },
+        {
+            id: "staff",
+        },
+        {
+            id: "mace",
+        },
+        {
+            id: "dagger",
+        },
+        {
+            id: "dual-wield",
+        },
+        {
+            id: "unarmed",
+        },
+        {
+            id: "marksman",
+        },
+        {
+            id: "bow",
+        },
+        {
+            id: "crossbow",
+        },
+        {
+            id: "firearm",
+        },
+        {
+            id: "thrown",
+        },
+        {
+            id: "bash",
+        },
+        {
+            id: "dodge",
+        },
+        {
+            id: "leather",
+        },
+        {
+            id: "chain",
+        },
+        {
+            id: "plate",
+        },
+        {
+            id: "shield",
+        },
+        {
+            id: "regeneration",
+        },
+        {
+            id: "alchemy",
+        },
+        {
+            id: "blacksmith",
+        },
+        {
+            id: "forage",
+        },
+        {
+            id: "leatherwork",
+        },
+        {
+            id: "fish",
+        },
+        {
+            id: "tailor",
+        },
+        {
+            id: "backstab",
+        },
+        {
+            id: "bandage",
+        },
+        {
+            id: "disarm",
+        },
+        {
+            id: "disarm-trap",
+        },
+        {
+            id: "hide",
+        },
+        {
+            id: "parry",
+        },
+        {
+            id: "lockpick",
+        },
+        {
+            id: "sneak",
+        },
+        {
+            id: "mount",
+        },
+        {
+            id: "flying",
+        }
+    ]
+}

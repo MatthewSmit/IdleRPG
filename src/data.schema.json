@@ -1,14 +1,28 @@
 {
     $schema: "https://json-schema.org/draft/2020-12/schema",
     $id: "https://idlemmo.com/data.schema.json",
-    type: "array",
-    items: {
-        oneOf: [
-            {
+    type: "object",
+    properties: {
+        classes: {
+            type: "array",
+            items: {
                 $ref: "#/definitions/class"
             }
-        ]
+        },
+        skills: {
+            type: "array",
+            items: {
+                $ref: "#/definitions/skill"
+            },
+        },
+        races: {
+            type: "array",
+            items: {
+                $ref: "#/definitions/race"
+            },
+        }
     },
+    additionalProperties: false,
     definitions: {
         class: {
             type: "object",
@@ -16,12 +30,6 @@
             properties: {
                 id: {
                     type: "string"
-                },
-                category: {
-                    type: "string",
-                    enum: [
-                        "class"
-                    ]
                 },
                 levellingDifficulty: {
                     type: "number",
@@ -56,11 +64,27 @@
                             $ref: "#/definitions/levelStat"
                         }
                     }
+                },
+                skills: {
+                    type: "array",
+                    items: {
+                        type: "object",
+                        properties: {
+                            id: {
+                                type: "string"
+                            },
+                            maxRank: {
+                                type: "integer",
+                                minimum: 1,
+                                maximum: 7,
+                            }
+                        },
+                        additionalProperties: false
+                    }
                 }
             },
             required: [
                 "id",
-                "category",
                 "levellingDifficulty"
             ]
         },
@@ -79,6 +103,30 @@
                         minimum: 0
                     }
                 }
+            ]
+        },
+        race: {
+            type: "object",
+            additionalProperties: false,
+            properties: {
+                id: {
+                    type: "string"
+                }
+            },
+            required: [
+                "id"
+            ]
+        },
+        skill: {
+            type: "object",
+            additionalProperties: false,
+            properties: {
+                id: {
+                    type: "string"
+                },
+            },
+            required: [
+                "id",
             ]
         }
     }

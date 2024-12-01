@@ -1,10 +1,69 @@
 {
     "class": {
-        "fighter": "Fighter"
+        "fighter": "Fighter",
+        "fighter.desc": "A versatile combatant who specializes in physical prowess and combat tactics. Fighters excel with a variety of weapons and armour, making them adaptable to any battlefield situation."
+    },
+    "race": {
+        "human": "Human"
+    },
+    "skill": {
+        "abjuration": "Abjuration",
+        "alteration": "Alteration",
+        "divination": "Divination",
+        "evocation": "Evocation",
+        "summoning": "Summoning",
+        "infernal": "Infernal",
+        "necromancy": "Necromancy",
+        "celestial": "Celestial",
+        "runic": "Runic",
+        "concentration": "Concentration",
+        "magical-implements": "Magical Implements",
+        "meditate": "Meditate",
+        "drums": "Drums",
+        "singing": "Singing",
+        "flute": "Flute Instruments",
+        "string": "String Instruments",
+        "arms-master": "Arms-Master",
+        "sword": "Sword",
+        "axe": "Axe",
+        "spear": "Spear",
+        "staff": "Staff",
+        "mace": "Mace",
+        "dagger": "Dagger",
+        "dual-wield": "Dual Wield",
+        "unarmed": "Unarmed",
+        "marksman": "Marksman",
+        "bow": "Bow",
+        "crossbow": "Crossbow",
+        "firearm": "Firearm",
+        "thrown": "Thrown",
+        "bash": "Bash",
+        "dodge": "Dodge",
+        "leather": "Leather",
+        "chain": "Chain",
+        "plate": "Plate",
+        "shield": "Shield",
+        "regeneration": "Regeneration",
+        "alchemy": "Alchemy",
+        "blacksmith": "Blacksmithing",
+        "forage": "Foraging",
+        "leatherwork": "Leatherworking",
+        "fish": "Fishing",
+        "tailor": "Tailoring",
+        "backstab": "Backstab",
+        "bandage": "Bandage",
+        "disarm": "Disarm",
+        "disarm-trap": "Disarm Trap",
+        "hide": "Hide",
+        "parry": "Parry",
+        "lockpick": "Lockpick",
+        "sneak": "Sneak",
+        "mount": "Mount",
+        "flying": "Flying"
     },
     "ui": {
-        "characterChip": {
-            "description": "{{name}} the level {{level}} {{class}}",
+        "character": {
+            "description": "{{name}} the level {{level}} {{race}} {{class}}",
             "xp": "{{xp}} XP / {{requiredXp}} XP",
             "strength": "Strength: {{stat}}",
             "speed": "Speed: {{stat}}",
@@ -13,7 +72,21 @@
             "stamina": "Stamina: {{stat}}",
             "wisdom": "Wisdom: {{stat}}",
             "intelligence": "Intelligence: {{stat}}",
-            "charisma": "Charisma: {{stat}}"
+            "charisma": "Charisma: {{stat}}",
+            "skill": {
+                "unlearned": "{{skill}} Unlearned",
+                "learned": "{{skill}} {{rank}} Level {{level}}",
+                "maxRank": "Max {{rank}}",
+                "rankLetter": "{{rank}} Rank",
+                "rankNumber": "Rank {{rank}}",
+                "rankWord1": "Beginner",
+                "rankWord2": "Trained",
+                "rankWord3": "Journeyman",
+                "rankWord4": "Expert",
+                "rankWord5": "Master",
+                "rankWord6": "Grandmaster",
+                "rankWord7": "Paragon"
+            }
         }
     }
 }

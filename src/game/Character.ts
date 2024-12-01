@@ -9,6 +9,8 @@ export class Character {
             name: "Test",
             currentClass: "fighter",
             classes: { fighter: { level: 1, xp: 0 } },
+            race: "human",
+            skills: {},
             stats: {
                 strength: 10,
                 agility: 10,
@@ -34,8 +36,22 @@ export class Character {
         return this._data.classes[this._data.currentClass];
     }
 
+    public get allClasses() {
+        const results = [];
+        for (const classId of Object.keys(this._data.classes)) {
+            if (this._data.classes[classId].level) {
+                results.push(data.class[classId]);
+            }
+        }
+        return results;
+    }
+
     public get level() {
         return this.classData.level;
+    }
+
+    public get race() {
+        return data.race[this._data.race];
     }
 
     public get totalLevel() {
@@ -65,5 +81,31 @@ export class Character {
         return {
             ...this._data.stats,
         };
+    }
+
+    private calculateMaxSkillRank(id: string) {
+        let maxRank = 0;
+        for (const clas of this.allClasses) {
+            maxRank = Math.max(
+                maxRank,
+                ...clas.skills
+                    .filter((skill) => skill.id === id)
+                    .map((skill) => skill.maxRank)
+            );
+        }
+        return maxRank;
+    }
+
+    public get allSkills() {
+        const result = [];
+        for (const skill of Object.values(data.skill)) {
+            result.push({
+                id: skill.id,
+                rank: this._data.skills[skill.id]?.rank ?? 0,
+                maxRank: this.calculateMaxSkillRank(skill.id),
+                level: this._data.skills[skill.id]?.level ?? 0,
+            });
+        }
+        return result;
     }
 }
