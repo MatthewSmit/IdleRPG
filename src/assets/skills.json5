@@ -2,162 +2,240 @@
     skills: [
         {
             id: "abjuration",
+            effects: {}
         },
         {
             id: "alteration",
+            effects: {}
         },
         {
             id: "divination",
+            effects: {}
         },
         {
             id: "evocation",
+            effects: {}
         },
         {
             id: "summoning",
+            effects: {}
         },
         {
             id: "infernal",
+            effects: {}
         },
         {
             id: "necromancy",
+            effects: {}
         },
         {
             id: "celestial",
+            effects: {}
         },
         {
             id: "runic",
+            effects: {}
         },
         {
             id: "concentration",
+            effects: {}
         },
         {
             id: "magical-implements",
+            effects: {}
         },
         {
             id: "meditate",
+            effects: {}
         },
         {
             id: "drums",
+            effects: {}
         },
         {
             id: "singing",
+            effects: {}
         },
         {
             id: "flute",
+            effects: {}
         },
         {
             id: "string",
+            effects: {}
         },
         {
             id: "arms-master",
+            effects: {}
         },
         {
             id: "sword",
+            effects: {
+                "1": [
+                    {
+                        modifier: "attack-bonus",
+                        value: "{skill:level} * {skill:rank}"
+                    }
+                ],
+                "2": [
+                    {
+                        modifier: "damage-bonus",
+                        value: "{skill:level} * ({skill:rank} / 2)"
+                    }
+                ],
+                "3": [
+                    {
+                        modifier: "dual-wield"
+                    }
+                ],
+                "4": [
+                    {
+                        modifier: "skill-bonus",
+                        skill: "parry",
+                        value: "{skill:level} / 2"
+                    }
+                ]
+            }
         },
         {
             id: "axe",
+            effects: {}
         },
         {
             id: "spear",
+            effects: {}
         },
         {
             id: "staff",
+            effects: {}
         },
         {
             id: "mace",
+            effects: {}
         },
         {
             id: "dagger",
+            effects: {}
         },
         {
             id: "dual-wield",
+            effects: {}
         },
         {
             id: "unarmed",
+            effects: {}
         },
         {
             id: "marksman",
+            effects: {}
         },
         {
             id: "bow",
+            effects: {}
         },
         {
             id: "crossbow",
+            effects: {}
         },
         {
             id: "firearm",
+            effects: {}
         },
         {
             id: "thrown",
+            effects: {}
         },
         {
             id: "bash",
+            effects: {}
         },
         {
             id: "dodge",
+            effects: {}
         },
         {
             id: "leather",
+            effects: {}
         },
         {
             id: "chain",
+            effects: {}
         },
         {
             id: "plate",
+            effects: {}
         },
         {
             id: "shield",
+            effects: {}
         },
         {
             id: "regeneration",
+            effects: {}
         },
         {
             id: "alchemy",
+            effects: {}
         },
         {
             id: "blacksmith",
+            effects: {}
         },
         {
             id: "forage",
+            effects: {}
         },
         {
             id: "leatherwork",
+            effects: {}
         },
         {
             id: "fish",
+            effects: {}
         },
         {
             id: "tailor",
+            effects: {}
         },
         {
             id: "backstab",
+            effects: {}
         },
         {
             id: "bandage",
+            effects: {}
         },
         {
             id: "disarm",
+            effects: {}
         },
         {
             id: "disarm-trap",
+            effects: {}
         },
         {
             id: "hide",
+            effects: {}
         },
         {
             id: "parry",
+            effects: {}
         },
         {
             id: "lockpick",
+            effects: {}
         },
         {
             id: "sneak",
+            effects: {}
         },
         {
             id: "mount",
+            effects: {}
         },
         {
             id: "flying",
+            effects: {}
         }
     ]
 }

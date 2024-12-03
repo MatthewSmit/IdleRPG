@@ -1,0 +1,16 @@
+{
+    start: [
+        {
+            race: "human",
+            class: "fighter",
+            skills: [
+                "sword",
+                "spear",
+                "crossbow",
+                "unarmed",
+                "shield",
+                "chain",
+            ]
+        }
+    ]
+}

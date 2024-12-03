@@ -2,6 +2,9 @@
     races: [
         {
             id: "human",
+            baseHealth: 10,
+            baseEnergy: 10,
+            baseMana: 10,
         }
     ]
 }

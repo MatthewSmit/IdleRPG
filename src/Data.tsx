@@ -1,13 +1,9 @@
 import { createContext } from "react";
-import { Data } from "./model/Data.ts";
+import { Data, StartConditions } from "./model/Data.ts";
 
 import type { Class } from "./model/Class.ts";
 import type { Race } from "./model/Race.ts";
 import type { Skill } from "./model/Skill.ts";
-
-import classData from "./assets/classes.json5";
-import raceData from "./assets/races.json5";
-import skillData from "./assets/skills.json5";
 
 export const DataContext = createContext<Data>(undefined as unknown as Data);
 
@@ -15,61 +11,111 @@ export const data: Data = {
     class: {},
     race: {},
     skill: {},
+    start: [],
 };
 
 interface IData {
     classes?: Class[];
     races?: Race[];
     skills?: Skill[];
+    start?: StartConditions[];
 }
 
 function parseData(allData: IData) {
-    if (allData.classes) {
-        for (const clas of allData.classes) {
-            if (data.class[clas.id]) {
-                throw new Error("TODO: merging with same ID");
-            }
+    function addStandard<T extends { id: string }>(
+        outputData: { [key: string]: T },
+        inputData?: T[]
+    ) {
+        if (inputData) {
+            for (const datum of inputData) {
+                if (outputData[datum.id]) {
+                    throw new Error("TODO: merging with same ID");
+                }
 
-            data.class[clas.id] = clas;
+                outputData[datum.id] = datum;
+            }
         }
     }
 
-    if (allData.races) {
-        for (const race of allData.races) {
-            if (data.race[race.id]) {
-                throw new Error("TODO: merging with same ID");
-            }
+    addStandard(data.class, allData.classes);
+    addStandard(data.race, allData.races);
+    addStandard(data.skill, allData.skills);
 
-            data.race[race.id] = race;
-        }
-    }
-
-    if (allData.skills) {
-        for (const skill of allData.skills) {
-            if (data.skill[skill.id]) {
-                throw new Error("TODO: merging with same ID");
-            }
-
-            data.skill[skill.id] = skill;
+    if (allData.start) {
+        for (const startCondition of allData.start) {
+            data.start.push(startCondition);
         }
     }
 }
 
-parseData(classData);
-parseData(raceData);
-parseData(skillData);
+const allData = import.meta.glob("./assets/*.json5");
+for (const data of Object.values(allData)) {
+    parseData((await data()) as IData);
+}
+
+function validateClass(clas: Class) {
+    for (let i = 0; i < clas.skills.length; i++) {
+        if (!data.skill[clas.skills[i].id]) {
+            console.log(
+                `UNKNOWN SKILL ID: ${clas.skills[i].id}; IN CLASS ${clas.id}.skill`
+            );
+            clas.skills.splice(i, 1);
+        }
+    }
+}
+
+function validateStart() {
+    const validStart: { race: string; class: string }[] = [];
+    for (const race of Object.values(data.race)) {
+        for (const clas of Object.values(data.class)) {
+            // TODO: Only base class
+
+            validStart.push({
+                race: race.id,
+                class: clas.id,
+            });
+        }
+    }
+
+    for (const startCondition of data.start) {
+        const found = validStart.filter(
+            (x) =>
+                x.class === startCondition.class &&
+                x.race === startCondition.race
+        )[0];
+
+        if (found) {
+            const index = validStart.indexOf(found);
+            validStart.splice(index, 1);
+        } else {
+            console.log(
+                `START FOR ${startCondition.race}/${startCondition.class} DOES NOT REFER TO A VALID CONDITION`
+            );
+        }
+    }
+
+    if (validStart.length > 0) {
+        for (const validStartElement of validStart) {
+            console.log(
+                `NO VALID START FOR ${validStartElement.race}/${
+                    validStartElement.class
+                }`
+            );
+            data.start.push({
+                race: validStartElement.race,
+                class: validStartElement.class,
+                skills: ["unarmed"],
+            });
+        }
+    }
+}
 
 function validateData() {
     for (const clas of Object.values(data.class)) {
-        for (let i = 0; i < clas.skills.length; i++) {
-            if (!data.skill[clas.skills[i].id]) {
-                console.log(
-                    `UNKNOWN SKILL ID: ${clas.skills[i].id}; IN CLASS ${clas.id}.skill`
-                );
-                clas.skills.splice(i, 1);
-            }
-        }
+        validateClass(clas);
     }
+
+    validateStart();
 }
 
 validateData();

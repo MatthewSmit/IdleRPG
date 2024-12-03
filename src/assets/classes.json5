@@ -3,6 +3,9 @@
         {
             id: "fighter",
             levellingDifficulty: 1,
+            health: "2d4",
+            mana: "0",
+            energy: "1d4",
             levelStats: {
                 strength: [
                     2,

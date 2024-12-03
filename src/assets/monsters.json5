@@ -1,0 +1,17 @@
+{
+    monsters: [
+        {
+            id: "goblin",
+            health: "{level}d6+4",
+            energy: "{level}d4+10",
+            mana: "4",
+            attacks: [
+                {
+                    name: "sword",
+                    attackSpeed: 1,
+                    damage: "1d6-1"
+                }
+            ]
+        }
+    ]
+}

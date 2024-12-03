@@ -1,0 +1,11 @@
+{
+    items: [
+        {
+            id: "short_sword",
+            category: "weapon",
+            weaponSkill: "sword",
+            attackBonus: 0,
+            damage: "1d6",
+        }
+    ]
+}

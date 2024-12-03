@@ -75,7 +75,7 @@
             "charisma": "Charisma: {{stat}}",
             "skill": {
                 "unlearned": "{{skill}} Unlearned",
-                "learned": "{{skill}} {{rank}} Level {{level}}",
+                "learned": "{{skill}} Lvl {{level}} ({{rank}})",
                 "maxRank": "Max {{rank}}",
                 "rankLetter": "{{rank}} Rank",
                 "rankNumber": "Rank {{rank}}",

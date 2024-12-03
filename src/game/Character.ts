@@ -22,6 +22,16 @@ export class Character {
                 wisdom: 10,
             },
         };
+
+        const start = data.start.filter(
+            (x) => x.race === "human" && x.class === "fighter"
+        )[0];
+        for (const skill of start.skills) {
+            this._data.skills[skill] = {
+                level: 1,
+                rank: 1,
+            };
+        }
     }
 
     public get name() {
