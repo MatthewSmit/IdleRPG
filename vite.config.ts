@@ -30,5 +30,6 @@ function json5Plugin(): Plugin {
 
 // https://vite.dev/config/
 export default defineConfig({
+    build: { target: "es2022" },
     plugins: [react(), json5Plugin()],
 });
