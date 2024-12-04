@@ -1,28 +1,43 @@
 name: Qodana
 on:
-  workflow_dispatch:
-  pull_request:
-  push:
-    branches: # Specify your branches here
-      - main # The 'main' branch
-      - 'releases/*' # The release branches
+    workflow_dispatch:
+    pull_request:
+    push:
+        branches:
+            - master
 
 jobs:
-  qodana:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-      checks: write
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}  # to check out the actual pull request commit, not the merge commit
-          fetch-depth: 0  # a full history is required for pull request analysis
-      - name: 'Qodana Scan'
-        uses: JetBrains/qodana-action@v2024.2
-        with:
-          pr-mode: false
-        env:
-          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_2101481844 }}
-          QODANA_ENDPOINT: 'https://qodana.cloud'
+    qodana:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+            pull-requests: write
+            checks: write
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v4
+                with:
+                    ref: ${{ github.event.pull_request.head.sha }}  # to check out the actual pull request commit, not the merge commit
+                    fetch-depth: 0  # a full history is required for pull request analysis
+
+            -   name: Install PNPM
+                uses: pnpm/action-setup@v4
+                with:
+                    run_install: false
+
+            -   name: Install Node.js
+                uses: actions/setup-node@v4
+                with:
+                    node-version: 22
+                    cache: 'pnpm'
+
+            -   name: Install dependencies
+                run: pnpm install
+
+            -   name: 'Qodana Scan'
+                uses: JetBrains/qodana-action@v2024.2
+                with:
+                    pr-mode: false
+                env:
+                    QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_2101481844 }}
+                    QODANA_ENDPOINT: 'https://qodana.cloud'
