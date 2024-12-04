@@ -21,6 +21,14 @@
             effects: {}
         },
         {
+            id: "illusion",
+            effects: {}
+        },
+        {
+            id: "temporal",
+            effects: {}
+        },
+        {
             id: "infernal",
             effects: {}
         },
@@ -49,7 +57,7 @@
             effects: {}
         },
         {
-            id: "drums",
+            id: "percussion-instrument",
             effects: {}
         },
         {
@@ -57,11 +65,11 @@
             effects: {}
         },
         {
-            id: "flute",
+            id: "wind-instrument",
             effects: {}
         },
         {
-            id: "string",
+            id: "string-instrument",
             effects: {}
         },
         {
@@ -170,6 +178,10 @@
             effects: {}
         },
         {
+            id: "resistance",
+            effects: {}
+        },
+        {
             id: "regeneration",
             effects: {}
         },
@@ -178,23 +190,35 @@
             effects: {}
         },
         {
-            id: "blacksmith",
+            id: "blacksmithing",
             effects: {}
         },
         {
-            id: "forage",
+            id: "foraging",
             effects: {}
         },
         {
-            id: "leatherwork",
+            id: "leatherworking",
             effects: {}
         },
         {
-            id: "fish",
+            id: "cooking",
             effects: {}
         },
         {
-            id: "tailor",
+            id: "fishing",
+            effects: {}
+        },
+        {
+            id: "enchanting",
+            effects: {}
+        },
+        {
+            id: "jewelcrafting",
+            effects: {}
+        },
+        {
+            id: "tailoring",
             effects: {}
         },
         {
@@ -218,6 +242,10 @@
             effects: {}
         },
         {
+            id: "endurance",
+            effects: {}
+        },
+        {
             id: "parry",
             effects: {}
         },
@@ -235,6 +263,14 @@
         },
         {
             id: "flying",
+            effects: {}
+        },
+        {
+            id: "tactics",
+            effects: {}
+        },
+        {
+            id: "leadership",
             effects: {}
         }
     ]
