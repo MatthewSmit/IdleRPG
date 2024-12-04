@@ -27,13 +27,11 @@ jobs:
             security-events: write
             actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
         steps:
-            -   name: Install PNPM
-                uses: pnpm/action-setup@v4
-                with:
-                    version: latest
-
             -   name: Checkout code
                 uses: actions/checkout@v4
+
+            -   name: Install PNPM
+                uses: pnpm/action-setup@v4
 
             -   name: Install Packages
                 run: pnpm install
