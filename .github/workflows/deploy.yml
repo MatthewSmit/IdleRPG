@@ -36,7 +36,6 @@ jobs:
             -   name: Upload production-ready build files
                 uses: actions/upload-pages-artifact@v3
                 with:
-                    name: production-files
                     path: ./dist
 
     deploy:
