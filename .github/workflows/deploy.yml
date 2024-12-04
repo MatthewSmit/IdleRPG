@@ -34,7 +34,7 @@ jobs:
                 run: pnpm run build
 
             -   name: Upload production-ready build files
-                uses: actions/upload-artifact@v3
+                uses: actions/upload-pages-artifact@v3
                 with:
                     name: production-files
                     path: ./dist
