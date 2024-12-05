@@ -7,7 +7,7 @@ import "./internationalisation";
 import { theme } from "./theme";
 
 import { data, DataContext } from "./Data.tsx";
-import { Character } from "./game/Character.ts";
+import { Character } from "./game/Character";
 import { CharacterChip } from "./components/CharacterChip.tsx";
 
 function App() {

@@ -1,14 +1,19 @@
 import { createContext } from "react";
-import { Data, StartConditions } from "./model/Data.ts";
+import { Data } from "./model/Data";
 
-import type { Class } from "./model/Class.ts";
-import type { Race } from "./model/Race.ts";
-import type { Skill } from "./model/Skill.ts";
+import type { Class } from "./model/Class";
+import type { Item } from "./model/Item";
+import type { Monster } from "./model/Monster";
+import type { Race } from "./model/Race";
+import type { Skill } from "./model/Skill";
+import type { StartConditions } from "./model/StartConditions";
 
 export const DataContext = createContext<Data>(undefined as unknown as Data);
 
 export const data: Data = {
     class: {},
+    item: {},
+    monster: {},
     race: {},
     skill: {},
     start: [],
@@ -16,6 +21,8 @@ export const data: Data = {
 
 interface IData {
     classes?: Class[];
+    items?: Item[];
+    monsters?: Monster[];
     races?: Race[];
     skills?: Skill[];
     start?: StartConditions[];
@@ -38,6 +45,8 @@ function parseData(allData: IData) {
     }
 
     addStandard(data.class, allData.classes);
+    addStandard(data.item, allData.items);
+    addStandard(data.monster, allData.monsters);
     addStandard(data.race, allData.races);
     addStandard(data.skill, allData.skills);
 
@@ -105,6 +114,7 @@ function validateStart() {
                 race: validStartElement.race,
                 class: validStartElement.class,
                 skills: ["unarmed"],
+                items: [],
             });
         }
     }

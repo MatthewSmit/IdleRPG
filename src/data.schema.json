@@ -49,6 +49,15 @@
                 id: {
                     type: "string"
                 },
+                health: {
+                    $ref: "#/definitions/diceRoll"
+                },
+                energy: {
+                    $ref: "#/definitions/diceRoll"
+                },
+                mana: {
+                    $ref: "#/definitions/diceRoll"
+                },
                 levellingDifficulty: {
                     type: "number",
                     minimum: 0.1
@@ -103,20 +112,81 @@
             },
             required: [
                 "id",
-                "levellingDifficulty"
+                "health",
+                "energy",
+                "mana",
+                "levellingDifficulty",
+                "levelStats",
+                "skills",
+            ]
+        },
+        diceRoll: {
+            oneOf: [
+                {
+                    type: "number"
+                },
+                {
+                    type: "string",
+                    // Possibly regex validation here
+                }
             ]
         },
         item: {
-            type: "object",
-            additionalProperties: false,
-            properties: {
-                id: {
-                    type: "string"
+            oneOf: [
+                {
+                    $ref: "#/definitions/item/definitions/weapon"
+                }
+            ],
+            definitions: {
+                base: {
+                    type: "object",
+                    properties: {
+                        id: {
+                            type: "string"
+                        },
+                        category: {
+                            type: "string",
+                            enum: [
+                                "weapon"
+                            ]
+                        },
+                        required: [
+                            "id",
+                            "category"
+                        ]
+                    },
+                    additionalProperties: false
+                },
+                weapon: {
+                    $ref: "#/definitions/item/definitions/base",
+                    type: "object",
+                    properties: {
+                        category: {
+                            type: "string",
+                            enum: [
+                                "weapon"
+                            ]
+                        },
+                        weaponSkill: {
+                            type: "string"
+                        },
+                        attackBonus: {
+                            type: "integer"
+                        },
+                        damage: {
+                            $ref: "#/definitions/diceRoll"
+                        }
+                    },
+                    required: [
+                        "id",
+                        "category",
+                        "weaponSkill",
+                        "attackBonus",
+                        "damage",
+                    ],
+                    additionalProperties: false
                 }
             },
-            required: [
-                "id"
-            ]
         },
         levelStat: {
             oneOf: [
@@ -141,10 +211,47 @@
             properties: {
                 id: {
                     type: "string"
+                },
+                health: {
+                    $ref: "#/definitions/diceRoll"
+                },
+                energy: {
+                    $ref: "#/definitions/diceRoll"
+                },
+                mana: {
+                    $ref: "#/definitions/diceRoll"
+                },
+                attacks: {
+                    type: "array",
+                    items: {
+                        type: "object",
+                        properties: {
+                            name: {
+                                type: "string"
+                            },
+                            attackSpeed: {
+                                type: "integer",
+                                minimum: 1
+                            },
+                            damage: {
+                                $ref: "#/definitions/diceRoll"
+                            }
+                        },
+                        required: [
+                            "name",
+                            "attackSpeed",
+                            "damage"
+                        ],
+                        additionalProperties: false
+                    }
                 }
             },
             required: [
-                "id"
+                "id",
+                "health",
+                "energy",
+                "mana",
+                "attacks",
             ]
         },
         modifier: {
@@ -177,10 +284,25 @@
             properties: {
                 id: {
                     type: "string"
+                },
+                baseHealth: {
+                    type: "integer",
+                    minimum: 0
+                },
+                baseEnergy: {
+                    type: "integer",
+                    minimum: 0
+                },
+                baseMana: {
+                    type: "integer",
+                    minimum: 0
                 }
             },
             required: [
-                "id"
+                "id",
+                "baseEnergy",
+                "baseHealth",
+                "baseMana"
             ]
         },
         start: {
@@ -197,13 +319,21 @@
                     type: "array",
                     items: {
                         type: "string"
+                    },
+                    minItems: 1
+                },
+                items: {
+                    type: "array",
+                    items: {
+                        type: "string"
                     }
                 }
             },
             required: [
                 "class",
                 "race",
-                "skills"
+                "skills",
+                "items",
             ]
         },
         skill: {

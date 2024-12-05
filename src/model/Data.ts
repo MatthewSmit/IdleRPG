@@ -1,15 +1,14 @@
-import { Class } from "./Class.ts";
-import { Race } from "./Race.ts";
-import { Skill } from "./Skill.ts";
-
-export interface StartConditions {
-    race: string;
-    class: string;
-    skills: string[];
-}
+import { Class } from "./Class";
+import { Item } from "./Item";
+import { Monster } from "./Monster";
+import { Race } from "./Race";
+import { Skill } from "./Skill";
+import { StartConditions } from "./StartConditions";
 
 export type Data = {
     ["class"]: { [key: string]: Class };
+    item: { [key: string]: Item };
+    monster: { [key: string]: Monster };
     race: { [key: string]: Race };
     skill: { [key: string]: Skill };
     start: StartConditions[];

@@ -10,6 +10,9 @@
                 "unarmed",
                 "shield",
                 "chain",
+            ],
+            items: [
+                "short_sword"
             ]
         }
     ]

@@ -1,4 +1,4 @@
-import { CharacterData } from "../model/CharacterData.ts";
+import { CharacterData } from "../model/CharacterData";
 import { data } from "../Data.tsx";
 
 export class Character {

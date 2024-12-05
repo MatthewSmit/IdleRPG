@@ -1,8 +1,8 @@
 import { Text } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 
-import { Character } from "../game/Character.ts";
-import { RankDisplayType } from "../model/Skill.ts";
+import { Character } from "../game/Character";
+import { RankDisplayType } from "../model/Skill";
 
 export interface ICharacterChipProps {
     character: Character;
