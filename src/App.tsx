@@ -7,11 +7,16 @@ import "./internationalisation";
 import { theme } from "./theme";
 
 import { data, DataContext } from "./Data.tsx";
-import { Character } from "./game/Character";
+import { buildCharacter, CharacterBuilder } from "./game/Character";
 import { CharacterChip } from "./components/CharacterChip.tsx";
 
 function App() {
-    const character = new Character();
+    const character = buildCharacter(
+        CharacterBuilder.new()
+            .withName("Test")
+            .withClass("fighter")
+            .withRace("human")
+    );
 
     return (
         <MantineProvider theme={theme}>

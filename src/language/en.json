@@ -65,6 +65,9 @@
         "character": {
             "description": "{{name}} the level {{level}} {{race}} {{class}}",
             "xp": "{{xp}} XP / {{requiredXp}} XP",
+            "health": "HP: {{value}} / {{max}}",
+            "energy": "EP: {{value}} / {{max}}",
+            "mana": "MP: {{value}} / {{max}}",
             "strength": "Strength: {{stat}}",
             "speed": "Speed: {{stat}}",
             "agility": "Agility: {{stat}}",

@@ -96,6 +96,24 @@ export function CharacterChip(props: ICharacterChipProps) {
                 })}
             </Text>
             <Text>
+                {t("ui.character.health", {
+                    value: character.health,
+                    max: character.maxHealth,
+                })}
+            </Text>
+            <Text>
+                {t("ui.character.energy", {
+                    value: character.energy,
+                    max: character.maxEnergy,
+                })}
+            </Text>
+            <Text>
+                {t("ui.character.mana", {
+                    value: character.mana,
+                    max: character.maxMana,
+                })}
+            </Text>
+            <Text>
                 {t("ui.character.strength", {
                     stat: character.stats.strength,
                 })}
