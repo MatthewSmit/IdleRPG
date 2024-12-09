@@ -115,7 +115,7 @@
                     maxRank: 2,
                 },
                 {
-                    id: "blacksmith",
+                    id: "blacksmithing",
                     maxRank: 1,
                 },
                 {

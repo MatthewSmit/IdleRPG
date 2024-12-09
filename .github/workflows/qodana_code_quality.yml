@@ -41,7 +41,7 @@ jobs:
                 with:
                     pr-mode: false
                 env:
-                    QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_2101481844 }}
+                    QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
                     QODANA_ENDPOINT: 'https://qodana.cloud'
 
             -   name: Upload analysis results to GitHub
