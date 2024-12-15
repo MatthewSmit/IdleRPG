@@ -98,16 +98,16 @@ export class Equation {
 
                 switch (value.type) {
                     case OperationType.ADD:
-                        return Math.round(left + right);
+                        return Math.floor(left + right);
 
                     case OperationType.SUB:
-                        return Math.round(right - right);
+                        return Math.floor(left - right);
 
                     case OperationType.MULT:
-                        return Math.round(left * right);
+                        return Math.floor(left * right);
 
                     case OperationType.DIV:
-                        return Math.round(left / right);
+                        return Math.floor(left / right);
 
                     case OperationType.ROLL: {
                         let sum = 0;
