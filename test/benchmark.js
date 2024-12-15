@@ -1,6 +1,16 @@
 import { Suite } from "bench-node";
+import * as peggy from "peggy";
+import * as fs from "node:fs";
 
-import { parse } from "./equationParser.js";
+const code = peggy.default.generate(
+    fs.readFileSync("./src/scripting/equationParser.pegjs", "utf8"),
+    {
+        output: "parser",
+        format: "commonjs",
+    }
+);
+
+const parse = code.parse;
 
 function StandardDiceRoller(min, max) {
     const size = max - min + 1;

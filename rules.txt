@@ -11,3 +11,9 @@ Charisma = Leadership stuff
 
 
 XP required = 10 * level * (95 + 5 * level) * (0.9 + totalLevel / 10)
+
+
+Combat:
+Miss chance (based off skills + agility, some spells can bypass)
+Armour (reduced damage, really high armour can reduce to 0, only reduces physical)
+Resistance (reduced damage/effect duration, only reduces magical)
