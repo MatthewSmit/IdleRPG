@@ -28,8 +28,11 @@ export function ItemChip(props: ItemChipProps) {
             <>
                 <Text>{itemT(item.data.id)}</Text>
                 <Text>
-                    TO HIT: {toHit}; HIT CHANCE: {hitChance}; DAMAGE:{" "}
-                    {damage.toString()}
+                    {t("ui.item.chip", {
+                        toHit,
+                        hitChance,
+                        damage,
+                    })}
                 </Text>
             </>
         );

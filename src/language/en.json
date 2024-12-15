@@ -95,6 +95,7 @@
             }
         },
         "item": {
+            "chip": "TO HIT: {{toHit}}; HIT CHANCE: {{hitChance}}; DAMAGE: {{damage}}",
             "main-hand": "Main Hand",
             "bag": "Bag"
         }
