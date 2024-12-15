@@ -1,6 +1,7 @@
 import { type CharacterData, type ItemState } from "../model/CharacterData";
 import { data } from "../Data.tsx";
 import { HandItem, type Item, ItemSlot, Weapon } from "./Item";
+import { WeaponItemData } from "../model/ItemData.ts";
 
 export class Character {
     _data: CharacterData;
@@ -127,7 +128,7 @@ export class Character {
                 case "weapon":
                     items.push({
                         slot,
-                        item: new Weapon(itemData),
+                        item: new Weapon(<WeaponItemData>itemData),
                     });
                     break;
             }

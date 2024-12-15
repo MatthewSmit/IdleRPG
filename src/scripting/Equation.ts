@@ -18,6 +18,10 @@ type Datum = Operation | number | string;
 
 type DiceRoller = (min: number, max: number) => number;
 
+export type ResolveCallback = (
+    variables?: IVariableStore | { [key: string]: number }
+) => number;
+
 function StandardDiceRoller(min: number, max: number) {
     const size = max - min + 1;
     return Math.floor(size * Math.random()) + min;
@@ -44,7 +48,6 @@ function getVariableStore(
 ): IVariableStore {
     if (variables === undefined) {
         return {
-            /* istanbul ignore next */
             get: (_) => 0,
             exists: (_) => false,
         };
@@ -170,9 +173,7 @@ export class Equation {
         return impl(this.value);
     }
 
-    generate(): (
-        variables?: IVariableStore | { [key: string]: number }
-    ) => number {
+    generate(): ResolveCallback {
         const variables = new Set<string>();
 
         function impl(value: Datum): string {

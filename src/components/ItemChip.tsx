@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 
 import type { Character } from "../game/Character";
 import { type Item, Weapon } from "../game/Item";
-import { Equation } from "../scripting/Equation";
 
 interface ItemChipProps {
     item: Item;
@@ -22,7 +21,6 @@ export function ItemChip(props: ItemChipProps) {
                 ? `+${item.data.attackBonus}`
                 : item.data.attackBonus;
         const hitChance = "TODO%";
-        const damage = new Equation(item.data.damage);
 
         return (
             <>
@@ -31,7 +29,7 @@ export function ItemChip(props: ItemChipProps) {
                     {t("ui.item.chip", {
                         toHit,
                         hitChance,
-                        damage,
+                        damage: item.damage,
                     })}
                 </Text>
             </>
