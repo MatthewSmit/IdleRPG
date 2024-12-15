@@ -1,4 +1,4 @@
-import { DiceRoll } from "./DiceRoll";
+import { DiceRollData } from "./DiceRollData";
 
 type LevelStat = number | number[];
 
@@ -7,12 +7,12 @@ interface SkillReference {
     maxRank: number;
 }
 
-export interface Class {
+export interface ClassData {
     id: string;
     levellingDifficulty: number;
-    health: DiceRoll;
-    mana: DiceRoll;
-    energy: DiceRoll;
+    health: DiceRollData;
+    mana: DiceRollData;
+    energy: DiceRollData;
     levelStats: {
         strength: LevelStat;
         speed: LevelStat;

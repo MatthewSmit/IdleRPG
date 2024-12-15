@@ -1,11 +1,11 @@
 import { createContext } from "react";
 import { Data } from "./model/Data";
 
-import type { Class } from "./model/Class";
-import type { Item } from "./model/Item";
-import type { Monster } from "./model/Monster";
-import type { Race } from "./model/Race";
-import type { Skill } from "./model/Skill";
+import type { ClassData } from "./model/ClassData";
+import type { ItemData } from "./model/ItemData";
+import type { MonsterData } from "./model/MonsterData";
+import type { RaceData } from "./model/RaceData";
+import type { SkillData } from "./model/SkillData";
 import type { StartConditions } from "./model/StartConditions";
 
 export const DataContext = createContext<Data>(undefined as unknown as Data);
@@ -20,11 +20,11 @@ export const data: Data = {
 };
 
 interface IData {
-    classes?: Class[];
-    items?: Item[];
-    monsters?: Monster[];
-    races?: Race[];
-    skills?: Skill[];
+    classes?: ClassData[];
+    items?: ItemData[];
+    monsters?: MonsterData[];
+    races?: RaceData[];
+    skills?: SkillData[];
     start?: StartConditions[];
 }
 
@@ -62,7 +62,7 @@ for (const data of Object.values(allData)) {
     parseData((await data()) as IData);
 }
 
-function validateClass(clas: Class) {
+function validateClass(clas: ClassData) {
     for (let i = 0; i < clas.skills.length; i++) {
         if (!data.skill[clas.skills[i].id]) {
             console.log(
@@ -100,6 +100,22 @@ function validateStart() {
             console.log(
                 `START FOR ${startCondition.race}/${startCondition.class} DOES NOT REFER TO A VALID CONDITION`
             );
+        }
+
+        for (const skill of startCondition.skills) {
+            if (!data.skill[skill]) {
+                console.log(
+                    `START FOR ${startCondition.race}/${startCondition.class} REFERS TO AN INVALID SKILL ${skill}`
+                );
+            }
+        }
+
+        for (const item of startCondition.items) {
+            if (!data.item[item]) {
+                console.log(
+                    `START FOR ${startCondition.race}/${startCondition.class} REFERS TO AN INVALID ITEM ${item}`
+                );
+            }
         }
     }
 

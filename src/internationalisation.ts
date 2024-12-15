@@ -8,6 +8,7 @@ export const resources = {
     en: {
         translation: en,
         class: en.class,
+        item: en.item,
         race: en.race,
         skill: en.skill,
     },

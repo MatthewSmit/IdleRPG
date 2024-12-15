@@ -1,9 +1,6 @@
-import { MAX_LEVEL } from "../constants";
-import {
-    type CharacterClassData,
-    type CharacterData,
-} from "../model/CharacterData";
+import { type CharacterData, type ItemState } from "../model/CharacterData";
 import { data } from "../Data.tsx";
+import { HandItem, type Item, ItemSlot, Weapon } from "./Item";
 
 export class Character {
     _data: CharacterData;
@@ -120,127 +117,43 @@ export class Character {
         }
         return result;
     }
-}
 
-interface ICharacterBuilderData {
-    name: string;
-    currentClass: string;
-    classes: { [key: string]: number };
-    race: string;
-}
+    public get allItems() {
+        const items: { slot: ItemSlot; item: Item }[] = [];
 
-export function buildCharacter(
-    builder: CharacterBuilder<ICharacterBuilderData>
-): Character {
-    const classes: { [key: string]: CharacterClassData } = {};
-    for (const clas in builder._data.classes) {
-        classes[clas] = {
-            level: builder._data.classes[clas],
-            xp: 0,
-        };
-    }
-
-    const race = data.race[builder._data.race];
-
-    const characterData: CharacterData = {
-        name: builder._data.name,
-        currentClass: builder._data.currentClass,
-        classes,
-        race: builder._data.race,
-        skills: {},
-        stats: {
-            strength: 10,
-            agility: 10,
-            charisma: 10,
-            dexterity: 10,
-            intelligence: 10,
-            speed: 10,
-            stamina: 10,
-            wisdom: 10,
-        },
-        health: race.baseHealth,
-        maxHealth: race.baseHealth,
-        energy: race.baseEnergy,
-        maxEnergy: race.baseEnergy,
-        mana: race.baseMana,
-        maxMana: race.baseMana,
-    };
-
-    const start = data.start.filter(
-        (x) =>
-            x.race === characterData.race &&
-            x.class === characterData.currentClass
-    )[0];
-
-    for (const skill of start.skills) {
-        characterData.skills[skill] = {
-            level: 1,
-            rank: 1,
-        };
-    }
-
-    // TODO: level up
-
-    return new Character(characterData);
-}
-
-export class CharacterBuilder<T extends object> {
-    readonly _data: T;
-
-    constructor(data: T) {
-        this._data = data;
-    }
-
-    static new(): CharacterBuilder<object> {
-        return new CharacterBuilder({});
-    }
-
-    withName(name: string): CharacterBuilder<T & { name: string }> {
-        return new CharacterBuilder({
-            ...this._data,
-            name,
-        });
-    }
-
-    withClass(
-        clas: string,
-        level: number = 1
-    ): CharacterBuilder<
-        T & {
-            currentClass: string;
-            classes: { [key: string]: number };
-        }
-    > {
-        if (level < 1 || level > MAX_LEVEL) {
-            throw Error("Level is out of range");
+        function addItem(slot: ItemSlot, item: ItemState) {
+            const itemData = data.item[item.id];
+            switch (itemData.category) {
+                case "weapon":
+                    items.push({
+                        slot,
+                        item: new Weapon(itemData),
+                    });
+                    break;
+            }
         }
 
-        if (!data.class[clas]) {
-            throw Error("Unknown class ID");
+        if (this._data.inventory.leftHand) {
+            addItem(ItemSlot.MAIN_HAND, this._data.inventory.leftHand);
         }
 
-        let classes: { [key: string]: number } = {};
-        if ("classes" in this._data) {
-            classes = <{ [key: string]: number }>this._data.classes;
+        for (const item of this._data.inventory.bag) {
+            addItem(ItemSlot.BAG, item);
         }
 
-        classes[clas] = level;
-
-        return new CharacterBuilder({
-            ...this._data,
-            currentClass: clas,
-            classes,
-        });
+        return items;
     }
 
-    withRace(race: string): CharacterBuilder<T & { race: string }> {
-        if (!data.race[race]) {
-            throw Error("Unknown race ID");
+    addItem(item: Item, tryEquip: boolean = true) {
+        if (tryEquip) {
+            if (item instanceof HandItem) {
+                if (this._data.inventory.leftHand === undefined) {
+                    this._data.inventory.leftHand = item.state;
+                    return;
+                }
+            }
         }
 
-        return new CharacterBuilder({
-            ...this._data,
-            race,
-        });
+        this._data.inventory.bag.push(item.state);
     }
 }

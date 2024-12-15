@@ -14,6 +14,15 @@ export interface Stats {
     charisma: number;
 }
 
+export interface ItemState {
+    id: string;
+}
+
+interface Inventory {
+    leftHand?: ItemState;
+    bag: ItemState[];
+}
+
 export interface CharacterData {
     name: string;
     currentClass: string;
@@ -32,4 +41,5 @@ export interface CharacterData {
     maxHealth: number;
     maxEnergy: number;
     maxMana: number;
+    inventory: Inventory;
 }

@@ -2,7 +2,8 @@ import { Text } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 
 import { Character } from "../game/Character";
-import { RankDisplayType } from "../model/Skill";
+import { RankDisplayType } from "../model/SkillData";
+import { ItemChip } from "./ItemChip";
 
 export interface ICharacterChipProps {
     character: Character;
@@ -196,6 +197,14 @@ export function CharacterChip(props: ICharacterChipProps) {
                         </Text>
                     );
                 })}
+            {...character.allItems.map(({ slot, item }) => {
+                return (
+                    <>
+                        <Text>{t(`ui.item.${slot}`)}: </Text>
+                        <ItemChip character={character} item={item} />
+                    </>
+                );
+            })}
         </>
     );
 }

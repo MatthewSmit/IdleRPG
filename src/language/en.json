@@ -3,6 +3,9 @@
         "fighter": "Fighter",
         "fighter.desc": "A versatile combatant who specializes in physical prowess and combat tactics. Fighters excel with a variety of weapons and armour, making them adaptable to any battlefield situation."
     },
+    "item": {
+        "short_sword": "Short Sword"
+    },
     "race": {
         "human": "Human"
     },
@@ -45,11 +48,11 @@
         "shield": "Shield",
         "regeneration": "Regeneration",
         "alchemy": "Alchemy",
-        "blacksmith": "Blacksmithing",
-        "forage": "Foraging",
-        "leatherwork": "Leatherworking",
-        "fish": "Fishing",
-        "tailor": "Tailoring",
+        "blacksmithing": "Blacksmithing",
+        "foraging": "Foraging",
+        "leatherworking": "Leatherworking",
+        "fishing": "Fishing",
+        "tailoring": "Tailoring",
         "backstab": "Backstab",
         "bandage": "Bandage",
         "disarm": "Disarm",
@@ -90,6 +93,10 @@
                 "rankWord6": "Grandmaster",
                 "rankWord7": "Paragon"
             }
+        },
+        "item": {
+            "main-hand": "Main Hand",
+            "bag": "Bag"
         }
     }
 }

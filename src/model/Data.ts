@@ -1,15 +1,15 @@
-import { Class } from "./Class";
-import { Item } from "./Item";
-import { Monster } from "./Monster";
-import { Race } from "./Race";
-import { Skill } from "./Skill";
+import { ClassData } from "./ClassData";
+import { ItemData } from "./ItemData";
+import { MonsterData } from "./MonsterData";
+import { RaceData } from "./RaceData";
+import { SkillData } from "./SkillData";
 import { StartConditions } from "./StartConditions";
 
 export type Data = {
-    ["class"]: { [key: string]: Class };
-    item: { [key: string]: Item };
-    monster: { [key: string]: Monster };
-    race: { [key: string]: Race };
-    skill: { [key: string]: Skill };
+    ["class"]: { [key: string]: ClassData };
+    item: { [key: string]: ItemData };
+    monster: { [key: string]: MonsterData };
+    race: { [key: string]: RaceData };
+    skill: { [key: string]: SkillData };
     start: StartConditions[];
 };

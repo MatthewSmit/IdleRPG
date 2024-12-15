@@ -36,6 +36,15 @@ jobs:
             -   name: Install dependencies
                 run: pnpm install
 
+            -   name: Run Tests
+                run: pnpm test
+
+            -   name: Archive coverage data
+                uses: actions/upload-artifact@v4
+                with:
+                    name: jest-coverage-data
+                    path: .qodana/code-coverage
+
             -   name: 'Qodana Scan'
                 uses: JetBrains/qodana-action@v2024.2
                 with:

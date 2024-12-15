@@ -13,7 +13,7 @@ export interface Effect {
     value?: string | number;
 }
 
-export interface Skill {
+export interface SkillData {
     id: string;
     effects: {
         1?: Effect[];

@@ -1,4 +1,4 @@
-export interface Race {
+export interface RaceData {
     id: string;
     baseHealth: number;
     baseEnergy: number;
