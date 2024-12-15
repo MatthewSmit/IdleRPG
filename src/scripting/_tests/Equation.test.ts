@@ -151,6 +151,7 @@ test("Equation.Random '1d4'", () => {
 test("Equation.DynamicVariable '{test}'", () => {
     const equation = new Equation("{test}");
     expect(equation.toString()).toBe("{test}");
+
     const value = equation.resolve({
         get: (_) => 42,
         exists: (variable) => variable === "test",
@@ -163,4 +164,33 @@ test("Equation.DynamicVariable '{test}'", () => {
         exists: (variable) => variable === "test",
     });
     expect(funcValue).toBe(42);
+});
+
+test("Equation.MissingVariable1 '{missing}'", () => {
+    const equation = new Equation("{missing}");
+
+    expect(() => equation.resolve()).toThrow();
+
+    const func = equation.generate();
+    expect(() => func()).toThrow();
+});
+
+test("Equation.MissingVariable2 '{missing}'", () => {
+    const equation = new Equation("{missing}");
+
+    expect(() => equation.resolve({})).toThrow();
+
+    const func = equation.generate();
+    expect(() => func({})).toThrow();
+});
+
+test("Equation.MissingVariable3 '{missing}'", () => {
+    const equation = new Equation("{missing}");
+
+    expect(() =>
+        equation.resolve({ get: (_) => 0, exists: (_) => false })
+    ).toThrow();
+
+    const func = equation.generate();
+    expect(() => func({ get: (_) => 0, exists: (_) => false })).toThrow();
 });
