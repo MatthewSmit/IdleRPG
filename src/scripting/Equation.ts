@@ -44,6 +44,7 @@ function getVariableStore(
 ): IVariableStore {
     if (variables === undefined) {
         return {
+            /* istanbul ignore next */
             get: (_) => 0,
             exists: (_) => false,
         };

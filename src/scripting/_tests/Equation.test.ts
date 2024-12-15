@@ -166,31 +166,17 @@ test("Equation.DynamicVariable '{test}'", () => {
     expect(funcValue).toBe(42);
 });
 
-test("Equation.MissingVariable1 '{missing}'", () => {
+test("Equation.MissingVariable '{missing}'", () => {
     const equation = new Equation("{missing}");
 
     expect(() => equation.resolve()).toThrow();
-
-    const func = equation.generate();
-    expect(() => func()).toThrow();
-});
-
-test("Equation.MissingVariable2 '{missing}'", () => {
-    const equation = new Equation("{missing}");
-
     expect(() => equation.resolve({})).toThrow();
-
-    const func = equation.generate();
-    expect(() => func({})).toThrow();
-});
-
-test("Equation.MissingVariable3 '{missing}'", () => {
-    const equation = new Equation("{missing}");
-
     expect(() =>
         equation.resolve({ get: (_) => 0, exists: (_) => false })
     ).toThrow();
 
     const func = equation.generate();
+    expect(() => func()).toThrow();
+    expect(() => func({})).toThrow();
     expect(() => func({ get: (_) => 0, exists: (_) => false })).toThrow();
 });
