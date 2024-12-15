@@ -9,7 +9,7 @@ export default {
                 },
             },
         ],
-        "^.+\\.pegjs$": "<rootDir>/jestPeggyTransformer.js",
+        "^.+\\.pegjs$": "<rootDir>/test/jestPeggyTransformer.js",
     },
     coverageDirectory: ".qodana/code-coverage/",
     coverageReporters: ["lcovonly"],

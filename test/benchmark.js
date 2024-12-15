@@ -1,47 +1,17 @@
-import { parse } from "./equationParser.pegjs";
+import { Suite } from "bench-node";
 
-enum OperationType {
-    ADD = "ADD",
-    SUB = "SUB",
-    MULT = "MULT",
-    DIV = "DIV",
-    ROLL = "ROLL",
-}
+import { parse } from "./equationParser.js";
 
-interface Operation {
-    type: OperationType;
-    left: Datum;
-    right: Datum;
-}
-
-type Datum = Operation | number | string;
-
-type DiceRoller = (min: number, max: number) => number;
-
-function StandardDiceRoller(min: number, max: number) {
+function StandardDiceRoller(min, max) {
     const size = max - min + 1;
     return Math.floor(size * Math.random()) + min;
 }
 
-export interface IVariableStore {
-    get: (variable: string) => number;
-
-    exists: (variable: string) => boolean;
-}
-
-function isStore(
-    variables: IVariableStore | { [key: string]: number }
-): variables is IVariableStore {
+function isStore(variables) {
     return "get" in variables && "exists" in variables;
 }
 
-function getVariableStore(
-    variables?:
-        | IVariableStore
-        | {
-              [key: string]: number;
-          }
-): IVariableStore {
+function getVariableStore(variables) {
     if (variables === undefined) {
         return {
             get: (_) => 0,
@@ -63,12 +33,10 @@ function getVariableStore(
     };
 }
 
-export class Equation {
-    private readonly value: Datum;
+class Equation {
+    diceRoller = StandardDiceRoller;
 
-    diceRoller: DiceRoller = StandardDiceRoller;
-
-    constructor(diceRoll: string | number) {
+    constructor(diceRoll) {
         if (typeof diceRoll === "number") {
             this.value = diceRoll;
         } else {
@@ -76,9 +44,9 @@ export class Equation {
         }
     }
 
-    toString(): string {
-        function impl(value: Datum): string {
-            function handleParens(childValue: Datum) {
+    toString() {
+        function impl(value) {
+            function handleParens(childValue) {
                 if (typeof childValue == "object") {
                     return `(${impl(childValue)})`;
                 }
@@ -98,19 +66,19 @@ export class Equation {
                     const right = handleParens(value.right);
 
                     switch (value.type) {
-                        case OperationType.ADD:
+                        case "ADD":
                             return `${left} + ${right}`;
 
-                        case OperationType.SUB:
+                        case "SUB":
                             return `${left} - ${right}`;
 
-                        case OperationType.MULT:
+                        case "MULT":
                             return `${left} * ${right}`;
 
-                        case OperationType.DIV:
+                        case "DIV":
                             return `${left} / ${right}`;
 
-                        case OperationType.ROLL:
+                        case "ROLL":
                             return `${left}d${right}`;
                     }
                 }
@@ -120,12 +88,10 @@ export class Equation {
         return impl(this.value);
     }
 
-    resolve(
-        variables: IVariableStore | { [key: string]: number } = {}
-    ): number {
+    resolve(variables = {}) {
         const variableStore = getVariableStore(variables);
 
-        const impl = (value: Datum): number => {
+        const impl = (value) => {
             switch (typeof value) {
                 case "string":
                     if (variableStore.exists(value)) {
@@ -142,19 +108,19 @@ export class Equation {
                     const right = impl(value.right) | 0;
 
                     switch (value.type) {
-                        case OperationType.ADD:
+                        case "ADD":
                             return (left + right) | 0;
 
-                        case OperationType.SUB:
+                        case "SUB":
                             return (left - right) | 0;
 
-                        case OperationType.MULT:
+                        case "MULT":
                             return (left * right) | 0;
 
-                        case OperationType.DIV:
+                        case "DIV":
                             return (left / right) | 0;
 
-                        case OperationType.ROLL: {
+                        case "ROLL": {
                             let sum = 0;
                             for (let i = 0; i < left; i++) {
                                 sum += this.diceRoller(1, right);
@@ -169,12 +135,10 @@ export class Equation {
         return impl(this.value);
     }
 
-    generate(): (
-        variables?: IVariableStore | { [key: string]: number }
-    ) => number {
-        const variables = new Set<string>();
+    generate() {
+        const variables = new Set();
 
-        function impl(value: Datum): string {
+        function impl(value) {
             switch (typeof value) {
                 case "number":
                     return (value || 0).toString();
@@ -187,19 +151,19 @@ export class Equation {
                     const left = impl(value.left);
                     const right = impl(value.right);
                     switch (value.type) {
-                        case OperationType.ADD:
+                        case "ADD":
                             return `((${left} + ${right}) | 0)`;
 
-                        case OperationType.SUB:
+                        case "SUB":
                             return `((${left} - ${right}) | 0)`;
 
-                        case OperationType.MULT:
+                        case "MULT":
                             return `((${left} * ${right}) | 0)`;
 
-                        case OperationType.DIV:
+                        case "DIV":
                             return `((${left} / ${right}) | 0)`;
 
-                        case OperationType.ROLL:
+                        case "ROLL":
                             return `roll(${left}, ${right})`;
                     }
                 }
@@ -227,3 +191,42 @@ export class Equation {
         );
     }
 }
+
+const suite = new Suite({
+    repeatSuite: 5,
+});
+
+const equation1 = new Equation("(1 + 4) * 8 / 2");
+const equation2 = new Equation("100d123");
+equation2.diceRoller = () => 1;
+const equation3 = new Equation("{test}d4 + 112");
+equation3.diceRoller = () => 1;
+const equation1Func = equation1.generate();
+const equation2Func = equation2.generate();
+const equation3Func = equation3.generate();
+
+suite.add("Interpreted1", () => {
+    equation1.resolve();
+});
+
+suite.add("Interpreted2", () => {
+    equation2.resolve();
+});
+
+suite.add("Interpreted3", () => {
+    equation3.resolve({ test: 40 });
+});
+
+suite.add("Compiled1", () => {
+    equation1Func();
+});
+
+suite.add("Compiled2", () => {
+    equation2Func();
+});
+
+suite.add("Compiled3", () => {
+    equation3Func({ test: 40 });
+});
+
+await suite.run();
