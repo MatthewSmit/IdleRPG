@@ -1,10 +1,10 @@
 import { Text } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 
-import type { Monster } from "../game/Monster";
+import type { MonsterCombatant } from "../game/combat/MonsterCombatant";
 
 export interface IMonsterChipProps {
-    monster: Monster;
+    monster: MonsterCombatant;
 }
 
 export function MonsterChip(props: IMonsterChipProps) {

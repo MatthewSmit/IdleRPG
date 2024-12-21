@@ -1,13 +1,37 @@
-import type { Equation, ResolveCallback } from "./Equation";
+import { DiceRollData } from "../model/DiceRollData";
+import { Equation, ResolveCallback } from "./Equation";
 
-const map = new Map<string, ResolveCallback>();
+const callbackMap = new Map<string, ResolveCallback>();
+const equationMap = new Map<
+    DiceRollData,
+    {
+        equation: Equation;
+        callback: ResolveCallback;
+    }
+>();
+
+export function getEquation(text: DiceRollData): {
+    equation: Equation;
+    callback: ResolveCallback;
+} {
+    let value = equationMap.get(text);
+    if (!value) {
+        const equation = new Equation(text);
+        value = {
+            equation,
+            callback: getEquationCallback(equation),
+        };
+    }
+
+    return value;
+}
 
 export function getEquationCallback(equation: Equation): ResolveCallback {
     const text = equation.toString();
-    let value = map.get(text);
+    let value = callbackMap.get(text);
     if (!value) {
         value = equation.generate();
-        map.set(text, value);
+        callbackMap.set(text, value);
     }
 
     return value;

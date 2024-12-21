@@ -1,7 +1,7 @@
-import { MAX_LEVEL } from "../constants";
 import { data } from "../Data";
 import type { CharacterClassData, CharacterData } from "../model/CharacterData";
 import { Character } from "./Character";
+import { MAX_LEVEL } from "./Constants";
 import { createItem } from "./ItemBuilder";
 
 interface ICharacterBuilderData {
@@ -40,11 +40,8 @@ export function buildCharacter(
             stamina: 10,
             wisdom: 10,
         },
-        health: race.baseHealth,
         maxHealth: race.baseHealth,
-        energy: race.baseEnergy,
         maxEnergy: race.baseEnergy,
-        mana: race.baseMana,
         maxMana: race.baseMana,
         inventory: { bag: [] },
     };

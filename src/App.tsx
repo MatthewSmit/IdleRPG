@@ -1,32 +1,43 @@
-import { MantineProvider } from "@mantine/core";
+import { Container, MantineProvider } from "@mantine/core";
 
 import "@mantine/core/styles.css";
 import "./App.css";
 import "./internationalisation";
+import { Game, GameContext } from "./game/Game";
+import { CombatScreen } from "./screens/CombatScreen";
 
 import { theme } from "./theme";
 
 import { data, DataContext } from "./Data.tsx";
-import { CharacterChip } from "./components/CharacterChip.tsx";
-import { MonsterChip } from "./components/MonsterChip";
 import { buildCharacter, CharacterBuilder } from "./game/CharacterBuilder";
-import { buildMonster, MonsterBuilder } from "./game/MonsterBuilder.ts";
+import { MonsterBuilder } from "./game/MonsterBuilder.ts";
 
-function App() {
-    const character = buildCharacter(
+const game = new Game();
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(window as any).game = game;
+
+game.addCharacter(
+    buildCharacter(
         CharacterBuilder.new()
             .withName("Test")
             .withClass("fighter")
             .withRace("human")
-    );
+    )
+);
 
-    const monster = buildMonster(MonsterBuilder.new("goblin"));
+game.addCharacterCombatant(game.characters[0]);
+game.addMonster(MonsterBuilder.new("goblin"));
 
+function App() {
     return (
         <MantineProvider theme={theme}>
             <DataContext.Provider value={data}>
-                <CharacterChip character={character} />
-                <MonsterChip monster={monster} />
+                <GameContext.Provider value={game}>
+                    <Container fluid>
+                        <CombatScreen />
+                    </Container>
+                </GameContext.Provider>
             </DataContext.Provider>
         </MantineProvider>
     );

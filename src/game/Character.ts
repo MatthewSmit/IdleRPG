@@ -63,28 +63,21 @@ export class Character {
         );
     }
 
-    public get health() {
-        return this._data.health;
-    }
-
     public get maxHealth() {
         return this._data.maxHealth;
-    }
-
-    public get energy() {
-        return this._data.energy;
     }
 
     public get maxEnergy() {
         return this._data.maxEnergy;
     }
 
-    public get mana() {
-        return this._data.mana;
-    }
-
     public get maxMana() {
         return this._data.maxMana;
+    }
+
+    public get dodge(): number {
+        // TODO:
+        return this._data.stats.agility;
     }
 
     public get stats() {

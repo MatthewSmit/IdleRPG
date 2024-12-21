@@ -2,7 +2,7 @@ import { data } from "../Data";
 import type { ItemState } from "../model/CharacterData";
 import type { ItemData, WeaponItemData } from "../model/ItemData";
 import { Equation, type ResolveCallback } from "../scripting/Equation";
-import { getEquationCallback } from "../scripting/EquationHelper";
+import { getEquation } from "../scripting/EquationHelper";
 
 export enum ItemSlot {
     MAIN_HAND = "main-hand",
@@ -44,8 +44,9 @@ export class Weapon extends HandItem {
     constructor(itemData: WeaponItemData) {
         super(itemData);
 
-        this.damage = new Equation(itemData.damage);
-        this.damageCallback = getEquationCallback(this.damage);
+        const { equation, callback } = getEquation(itemData.damage);
+        this.damage = equation;
+        this.damageCallback = callback;
     }
 
     public get data(): WeaponItemData {

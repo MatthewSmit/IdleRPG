@@ -1,15 +1,17 @@
 import { data } from "../Data";
 import type { MonsterInstanceData } from "../model/MonsterInstanceData";
 import { Equation } from "../scripting/Equation";
-import { Monster } from "./Monster";
+import { MonsterCombatant } from "./combat/MonsterCombatant";
+import type { Game } from "./Game";
 
-interface IMonsterBuilderData {
+export interface IMonsterBuilderData {
     id: string;
 }
 
 export function buildMonster(
+    game: Game,
     builder: MonsterBuilder<IMonsterBuilderData>
-): Monster {
+): MonsterCombatant {
     const monsterData = data.monster[builder._data.id];
 
     const level = monsterData.baseLevel;
@@ -36,7 +38,7 @@ export function buildMonster(
         armour: monsterData.armour ?? 0,
     };
 
-    return new Monster(instanceData);
+    return new MonsterCombatant(game, instanceData);
 }
 
 export class MonsterBuilder<T extends object> {

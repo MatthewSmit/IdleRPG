@@ -35,9 +35,6 @@ export interface CharacterData {
         };
     };
     stats: Stats;
-    health: number;
-    energy: number;
-    mana: number;
     maxHealth: number;
     maxEnergy: number;
     maxMana: number;
