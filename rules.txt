@@ -14,6 +14,19 @@ XP required = 10 * level * (95 + 5 * level) * (0.9 + totalLevel / 10)
 
 
 Combat:
+dodge = agility + level
+hit chance = dexterity
+
 Miss chance (based off skills + agility, some spells can bypass)
+
+    10 attack with 10 dodge = 50% hit chance
+    10 attack with 20 dodge = 25% hit chance
+    20 attack with 10 dodge = 75% hit chance
+
+    attack < dodge  = -0.5(-1/(dodge/attack))
+    attack >= dodge = 0.5(-1/(attack/dodge))+1
+
 Armour (reduced damage, really high armour can reduce to 0, only reduces physical)
+    damage - armour = real damage
+
 Resistance (reduced damage/effect duration, only reduces magical)

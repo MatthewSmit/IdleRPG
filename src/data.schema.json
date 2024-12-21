@@ -212,6 +212,10 @@
                 id: {
                     type: "string"
                 },
+                baseLevel: {
+                    type: "integer",
+                    minimum: 1
+                },
                 health: {
                     $ref: "#/definitions/diceRoll"
                 },
@@ -233,6 +237,10 @@
                                 type: "integer",
                                 minimum: 1
                             },
+                            attackModifier: {
+                                type: "integer",
+                                minimum: 1,
+                            },
                             damage: {
                                 $ref: "#/definitions/diceRoll"
                             }
@@ -240,18 +248,28 @@
                         required: [
                             "name",
                             "attackSpeed",
+                            "attackModifier",
                             "damage"
                         ],
                         additionalProperties: false
                     }
+                },
+                dodge: {
+                    type: "integer",
+                    minimum: 1
+                },
+                armour: {
+                    type: "integer",
                 }
             },
             required: [
                 "id",
+                "baseLevel",
                 "health",
                 "energy",
                 "mana",
                 "attacks",
+                "dodge"
             ]
         },
         modifier: {

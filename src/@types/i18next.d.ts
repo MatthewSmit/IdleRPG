@@ -7,6 +7,7 @@ declare module "i18next" {
             translation: (typeof resources)["en"]["translation"];
             class: { [key: string]: string };
             item: { [key: string]: string };
+            monster: { [key: string]: string };
             race: { [key: string]: string };
             skill: { [key: string]: string };
         };

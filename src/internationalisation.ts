@@ -9,6 +9,7 @@ export const resources = {
         translation: en,
         class: en.class,
         item: en.item,
+        monster: en.monster,
         race: en.race,
         skill: en.skill,
     },

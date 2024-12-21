@@ -6,6 +6,9 @@
     "item": {
         "short_sword": "Short Sword"
     },
+    "monster": {
+        "goblin": "Goblin"
+    },
     "race": {
         "human": "Human"
     },
@@ -95,7 +98,7 @@
             }
         },
         "item": {
-            "chip": "TO HIT: {{toHit}}; HIT CHANCE: {{hitChance}}; DAMAGE: {{damage}}",
+            "chip": "Attack Modifier: {{attackModifier}}; Damage: {{damage}}",
             "main-hand": "Main Hand",
             "bag": "Bag"
         }

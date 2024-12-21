@@ -1,11 +1,14 @@
 import { DiceRollData } from "./DiceRollData";
 
-export interface MonsterData {
+export interface MonsterInstanceData {
     id: string;
-    baseLevel: number;
-    health: DiceRollData;
-    energy: DiceRollData;
-    mana: DiceRollData;
+    level: number;
+    health: number;
+    energy: number;
+    mana: number;
+    maxHealth: number;
+    maxEnergy: number;
+    maxMana: number;
     attacks: {
         name: string;
         attackSpeed: number;
@@ -13,5 +16,5 @@ export interface MonsterData {
         damage: DiceRollData;
     }[];
     dodge: number;
-    armour?: number;
+    armour: number;
 }

@@ -157,4 +157,11 @@ export class Character {
 
         this._data.inventory.bag.push(item.state);
     }
+
+    calculateAttackModifier(weapon: Weapon) {
+        // switch (weapon.)
+
+        // TODO skills
+        return this.stats.dexterity + weapon.data.attackBonus;
+    }
 }

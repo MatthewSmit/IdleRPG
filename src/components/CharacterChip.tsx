@@ -201,7 +201,7 @@ export function CharacterChip(props: ICharacterChipProps) {
                 return (
                     <>
                         <Text>{t(`ui.item.${slot}`)}: </Text>
-                        <ItemChip character={character} item={item} />
+                        <ItemChip item={item} />
                     </>
                 );
             })}
