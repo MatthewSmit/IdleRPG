@@ -10,7 +10,7 @@
         "lint": "tsc -b && eslint .",
         "preview": "vite preview",
         "bench": "node --allow-natives-syntax test/benchmark.js",
-        "test": "vitest --coverage.enabled --coverage.provider=istanbul --coverage.all --watch=false"
+        "test": "vitest --coverage.enabled --coverage.provider=istanbul --coverage.all --watch=false --coverage.reporter=lcov --coverage.reporter=text --coverage.reporter=html"
     },
     "dependencies": {
         "@mantine/core": "^7.15.1",
