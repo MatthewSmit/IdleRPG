@@ -10,7 +10,7 @@
         "lint": "tsc -b && eslint .",
         "preview": "vite preview",
         "bench": "node --allow-natives-syntax test/benchmark.js",
-        "test": "jest --coverage"
+        "test": "vitest --coverage.enabled --coverage.provider=istanbul --coverage.all --watch=false"
     },
     "dependencies": {
         "@mantine/core": "^7.15.1",
@@ -26,15 +26,11 @@
         "@eslint/js": "^9.17.0",
         "@microsoft/eslint-formatter-sarif": "^3.1.0",
         "@rollup/pluginutils": "^5.1.4",
-        "@testing-library/react": "^16.1.0",
-        "@types/jest": "^29.5.14",
         "@types/react": "^18.3.16",
         "@types/react-dom": "^18.3.5",
         "@vitejs/plugin-react": "^4.3.4",
+        "@vitest/coverage-istanbul": "^2.1.8",
         "bench-node": "^0.4.1",
-        "jest": "^29.7.0",
-        "jest-environment-jsdom": "^29.7.0",
-        "jest-transform-stub": "^2.0.0",
         "eslint": "^9.17.0",
         "eslint-config-mantine": "^4.0.3",
         "eslint-config-prettier": "^9.1.0",
@@ -44,10 +40,10 @@
         "globals": "^15.14.0",
         "peggy": "^4.2.0",
         "prettier": "^3.4.2",
-        "ts-jest": "^29.2.5",
         "ts-node": "^10.9.2",
         "typescript": "~5.7.2",
         "typescript-eslint": "^8.18.1",
-        "vite": "^6.0.5"
+        "vite": "^6.0.5",
+        "vitest": "^2.1.8"
     }
 }

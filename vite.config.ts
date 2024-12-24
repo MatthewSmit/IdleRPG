@@ -2,7 +2,7 @@ import { dataToEsm } from "@rollup/pluginutils";
 import react from "@vitejs/plugin-react";
 import JSON5 from "json5";
 import * as peggy from "peggy";
-import { defineConfig, Plugin } from "vite";
+import { defineConfig, Plugin } from "vitest/config";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const peggyGenerate = (peggy as any).default.generate;
@@ -55,5 +55,13 @@ function peggyPlugin(): Plugin {
 export default defineConfig({
     base: "./",
     build: { target: "es2022" },
-    plugins: [react(), json5Plugin(), peggyPlugin()],
+    plugins: [
+        // @ts-expect-error TS2769
+        react() as unknown,
+        json5Plugin(),
+        peggyPlugin(),
+    ],
+    test: {
+        coverage: {},
+    },
 });

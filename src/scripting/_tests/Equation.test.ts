@@ -1,3 +1,5 @@
+import { expect, test } from "vitest";
+
 import { Equation } from "../Equation";
 
 test("Equation.Constant '1'", () => {

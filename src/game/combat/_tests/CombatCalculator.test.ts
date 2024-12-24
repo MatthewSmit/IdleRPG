@@ -1,5 +1,7 @@
-import { CombatCalculator } from "../CombatCalculator";
+import { expect, test } from "vitest";
 
+import { CombatCalculator } from "../CombatCalculator";
+ 
 test("Hit chance - Equal", () => {
     const calculator = new CombatCalculator();
 
