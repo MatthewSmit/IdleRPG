@@ -10,7 +10,6 @@ import { theme } from "./theme";
 
 import { data, DataContext } from "./Data.tsx";
 import { buildCharacter, CharacterBuilder } from "./game/CharacterBuilder";
-import { MonsterBuilder } from "./game/MonsterBuilder.ts";
 
 const game = new Game();
 
@@ -27,7 +26,6 @@ game.addCharacter(
 );
 
 game.addCharacterCombatant(game.characters[0]);
-game.addMonster(MonsterBuilder.new("goblin"));
 
 function App() {
     return (

@@ -84,8 +84,10 @@ export abstract class Combatant {
         }
 
         if (this._action.timeLeft <= 0) {
+            const extraTime = -this._action.timeLeft;
+
             this._action.call();
-            this._action = this.chooseNextAction();
+            this._action = this.chooseNextAction(extraTime);
         }
     }
 
@@ -98,7 +100,9 @@ export abstract class Combatant {
         }
     }
 
-    protected abstract chooseNextAction(): IAction | undefined;
+    protected abstract chooseNextAction(
+        extraTime?: number
+    ): IAction | undefined;
 
     performAttackImpl(
         target: Combatant,

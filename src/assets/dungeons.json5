@@ -1,0 +1,12 @@
+{
+    dungeons: [
+        {
+            id: "goblin-forest",
+            monsters: [
+                "goblin"
+            ],
+            minLevel: 1,
+            maxLevel: 5,
+        }
+    ]
+}

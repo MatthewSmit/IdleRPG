@@ -2,7 +2,7 @@ import { data } from "../../Data";
 import type { ItemState } from "../../model/CharacterData";
 import type { WeaponItemData } from "../../model/ItemData";
 import type { Character } from "../Character";
-import { ROUND_TIME } from "../Constants";
+import { ROUND_TIME, TICK_INTERVAL } from "../Constants";
 import type { Game } from "../Game";
 import { Weapon } from "../Item";
 import { Combatant, IAction } from "./Combatant";
@@ -79,12 +79,14 @@ export class CharacterCombatant extends Combatant {
         return true;
     }
 
-    protected override chooseNextAction(): IAction | undefined {
+    protected override chooseNextAction(
+        extraTime: number = 0
+    ): IAction | undefined {
         // TODO
         const timeRequired = ROUND_TIME;
         return {
             timeRequired,
-            timeLeft: timeRequired,
+            timeLeft: Math.max(timeRequired - extraTime, TICK_INTERVAL),
             call: () => {
                 if (this._target) {
                     this.performAttack(this._target, this._mainWeapon);

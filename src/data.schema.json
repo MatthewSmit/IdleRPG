@@ -9,6 +9,12 @@
                 $ref: "#/definitions/class"
             }
         },
+        dungeons: {
+            type: "array",
+            items: {
+                $ref: "#/definitions/dungeon"
+            }
+        },
         items: {
             type: "array",
             items: {
@@ -129,6 +135,36 @@
                     type: "string",
                     // Possibly regex validation here
                 }
+            ]
+        },
+        dungeon: {
+            type: "object",
+            additionalProperties: false,
+            properties: {
+                id: {
+                    type: "string"
+                },
+                monsters: {
+                    type: "array",
+                    items: {
+                        type: "string"
+                    },
+                    minItems: 1
+                },
+                minLevel: {
+                    type: "integer",
+                    minimum: 1
+                },
+                maxLevel: {
+                    type: "integer",
+                    minimum: 1
+                }
+            },
+            required: [
+                "id",
+                "monsters",
+                "minLevel",
+                "maxLevel",
             ]
         },
         item: {

@@ -2,6 +2,7 @@ import { createContext } from "react";
 import { Data } from "./model/Data";
 
 import type { ClassData } from "./model/ClassData";
+import type { DungeonData } from "./model/DungeonData";
 import type { ItemData } from "./model/ItemData";
 import type { MonsterData } from "./model/MonsterData";
 import type { RaceData } from "./model/RaceData";
@@ -12,6 +13,7 @@ export const DataContext = createContext<Data>(undefined as unknown as Data);
 
 export const data: Data = {
     class: {},
+    dungeons: {},
     item: {},
     monster: {},
     race: {},
@@ -21,6 +23,7 @@ export const data: Data = {
 
 interface IData {
     classes?: ClassData[];
+    dungeons?: DungeonData[];
     items?: ItemData[];
     monsters?: MonsterData[];
     races?: RaceData[];
@@ -45,6 +48,7 @@ function parseData(allData: IData) {
     }
 
     addStandard(data.class, allData.classes);
+    addStandard(data.dungeons, allData.dungeons);
     addStandard(data.item, allData.items);
     addStandard(data.monster, allData.monsters);
     addStandard(data.race, allData.races);
@@ -66,9 +70,20 @@ function validateClass(clas: ClassData) {
     for (let i = 0; i < clas.skills.length; i++) {
         if (!data.skill[clas.skills[i].id]) {
             console.log(
-                `UNKNOWN SKILL ID: ${clas.skills[i].id}; IN CLASS ${clas.id}.skill`
+                `UNKNOWN SKILL ID: '${clas.skills[i].id}' IN CLASS '${clas.id}.skill'`
             );
-            clas.skills.splice(i, 1);
+            clas.skills.splice(i--, 1);
+        }
+    }
+}
+
+function validateDungeon(dungeon: DungeonData) {
+    for (let i = 0; i < dungeon.monsters.length; i++) {
+        if (!data.monster[dungeon.monsters[i]]) {
+            console.log(
+                `UNKNOWN MONSTER ID: '${dungeon.monsters[i]}' IN MONSTER '${dungeon.id}.monsters'`
+            );
+            dungeon.monsters.splice(i--, 1);
         }
     }
 }
@@ -139,6 +154,10 @@ function validateStart() {
 function validateData() {
     for (const clas of Object.values(data.class)) {
         validateClass(clas);
+    }
+
+    for (const dungeon of Object.values(data.dungeons)) {
+        validateDungeon(dungeon);
     }
 
     validateStart();

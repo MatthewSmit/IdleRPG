@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from "react";
 
 import { CharacterChip } from "../components/CharacterChip";
 import { CombatChip } from "../components/combat/CombatChip";
-import { MonsterChip } from "../components/MonsterChip";
 import { TICK_INTERVAL, TICK_MULTIPLIER } from "../game/Constants";
 import { GameContext } from "../game/Game";
 
@@ -54,9 +53,6 @@ export function CombatScreen() {
 
             <Grid.Col span={6}>
                 <CharacterChip character={game.characters[0]} />
-            </Grid.Col>
-            <Grid.Col span={6}>
-                <MonsterChip monster={game.monsterCombatants[0]} />
             </Grid.Col>
         </Grid>
     );

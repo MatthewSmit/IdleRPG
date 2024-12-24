@@ -6,6 +6,7 @@ import type { Game } from "./Game";
 
 export interface IMonsterBuilderData {
     id: string;
+    level?: number;
 }
 
 export function buildMonster(
@@ -14,7 +15,7 @@ export function buildMonster(
 ): MonsterCombatant {
     const monsterData = data.monster[builder._data.id];
 
-    const level = monsterData.baseLevel;
+    const level = builder._data.level ?? monsterData.baseLevel;
 
     const vars = {
         level,
@@ -54,5 +55,16 @@ export class MonsterBuilder<T extends object> {
         }
 
         return new MonsterBuilder({ id });
+    }
+
+    withLevel(level: number): MonsterBuilder<T & { level: number }> {
+        if (level < 1) {
+            throw Error("Level is out of range");
+        }
+
+        return new MonsterBuilder({
+            ...this._data,
+            level,
+        });
     }
 }
