@@ -156,7 +156,7 @@ export function CharacterChip(props: ICharacterChipProps) {
                 .map((skill) => {
                     if (!skill.rank && !skill.maxRank) {
                         return (
-                            <Text>
+                            <Text key={skill.id}>
                                 {t("ui.character.skill.unlearned", {
                                     skill: skillT(skill.id),
                                 })}
@@ -166,7 +166,7 @@ export function CharacterChip(props: ICharacterChipProps) {
 
                     if (!skill.rank) {
                         return (
-                            <Text>
+                            <Text key={skill.id}>
                                 {t("ui.character.skill.unlearned", {
                                     skill: skillT(skill.id),
                                 })}
@@ -179,7 +179,7 @@ export function CharacterChip(props: ICharacterChipProps) {
                     }
 
                     return (
-                        <Text>
+                        <Text key={skill.id}>
                             {t("ui.character.skill.learned", {
                                 skill: skillT(skill.id),
                                 rank: rankText(skill.rank),
@@ -196,10 +196,10 @@ export function CharacterChip(props: ICharacterChipProps) {
                 })}
             {...character.allItems.map(({ slot, item }) => {
                 return (
-                    <>
+                    <div key={slot}>
                         <Text>{t(`ui.item.${slot}`)}: </Text>
                         <ItemChip item={item} />
-                    </>
+                    </div>
                 );
             })}
         </>

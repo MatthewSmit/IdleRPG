@@ -6,7 +6,7 @@ import type {
 import { getEquation } from "../../scripting/EquationHelper";
 import { ROUND_TIME, TICK_INTERVAL } from "../Constants";
 import type { Game } from "../Game";
-import { Combatant, IAction } from "./Combatant";
+import { ActionType, Combatant, IAction } from "./Combatant";
 
 export class MonsterCombatant extends Combatant {
     private _data: MonsterInstanceData;
@@ -16,7 +16,7 @@ export class MonsterCombatant extends Combatant {
         this._data = data;
     }
 
-    public get id() {
+    public override get id(): string {
         return this._data.id;
     }
 
@@ -67,15 +67,22 @@ export class MonsterCombatant extends Combatant {
     protected override chooseNextAction(
         extraTime: number = 0
     ): IAction | undefined {
+        const target = this.chooseNextTarget();
+        if (!target) {
+            return undefined;
+        }
+
         // TODO
         const attack = this._data.attacks[0];
         const timeRequired = ROUND_TIME / attack.attackSpeed;
         return {
+            target,
+            actionType: ActionType.MAIN_ATTACK,
             timeRequired,
             timeLeft: Math.max(timeRequired - extraTime, TICK_INTERVAL),
             call: () => {
-                if (this._target) {
-                    this.performAttack(this._target, attack);
+                if (target) {
+                    this.performAttack(target, attack);
                 }
             },
         };

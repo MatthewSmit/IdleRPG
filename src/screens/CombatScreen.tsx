@@ -35,7 +35,7 @@ export function CombatScreen() {
             <Grid.Col span={6}>
                 <Grid>
                     {...game.characterCombatants.map((value) => (
-                        <Grid.Col span={12}>
+                        <Grid.Col span={12} key={value.id}>
                             <CombatChip combatant={value} />
                         </Grid.Col>
                     ))}
@@ -44,7 +44,7 @@ export function CombatScreen() {
             <Grid.Col span={6}>
                 <Grid>
                     {...game.monsterCombatants.map((value) => (
-                        <Grid.Col span={12}>
+                        <Grid.Col span={12} key={value.id}>
                             <CombatChip combatant={value} />
                         </Grid.Col>
                     ))}

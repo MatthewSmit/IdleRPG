@@ -1,8 +1,17 @@
 import type { ResolveCallback } from "../../scripting/Equation";
+import { ACTION_RESULT_TIME, TICK_MULTIPLIER } from "../Constants";
 import type { Game } from "../Game";
 import { CombatCalculator } from "./CombatCalculator";
 
+export enum ActionType {
+    MAIN_ATTACK,
+}
+
 export interface IAction {
+    target: Combatant;
+
+    actionType: ActionType;
+
     timeRequired: number;
     timeLeft: number;
 
@@ -12,15 +21,18 @@ export interface IAction {
 export abstract class Combatant {
     private _game: Game;
 
-    protected _target?: Combatant;
+    protected _actions: IAction[] = [];
 
-    protected _action?: IAction;
-
-    public lastActionResult: string = "";
+    private _actionResults: {
+        text: string;
+        timeLeft: number;
+    }[] = [];
 
     protected constructor(game: Game) {
         this._game = game;
     }
+
+    public abstract get id(): string;
 
     public abstract get name(): string;
 
@@ -46,57 +58,69 @@ export abstract class Combatant {
         return this.health <= 0;
     }
 
-    public get currentAction(): IAction | undefined {
-        return this._action;
+    public get actionResults() {
+        return this._actionResults;
+    }
+
+    public get currentActions(): IAction[] {
+        return this._actions;
     }
 
     public tick(interval: number) {
+        for (const actionResult of this._actionResults) {
+            actionResult.timeLeft -= interval / TICK_MULTIPLIER;
+        }
+
+        this._actionResults = this._actionResults.filter(
+            (actionResult) => actionResult.timeLeft > 0
+        );
+
         if (this.isDead) {
-            this._target = undefined;
-            this._action = undefined;
-            this.lastActionResult = "";
+            this._actions = [];
             return;
         }
 
-        const wasNoTarget = this._target === undefined;
+        let extraTime = 0;
 
-        // if no target or target dead, find new one and choose next action
-        if (this._target === undefined || this._target.isDead) {
-            this._target = this.chooseNextTarget();
-            this._action = undefined;
-        }
+        for (const action of this._actions) {
+            action.timeLeft -= interval;
 
-        if (this._target === undefined) {
-            if (wasNoTarget) {
-                this.lastActionResult = "";
+            // TODO: allow some actions that target dead things
+            if (action.target.isDead) {
+                action.timeLeft = 0;
+            } else if (action.timeLeft <= 0) {
+                action.call();
+                extraTime = -action.timeLeft;
             }
-            return;
         }
 
-        if (this._action === undefined) {
-            this._action = this.chooseNextAction();
-        } else {
-            this._action.timeLeft -= interval;
-        }
+        this._actions = this._actions.filter((action) => action.timeLeft > 0);
 
-        if (this._action === undefined) {
-            return;
-        }
-
-        if (this._action.timeLeft <= 0) {
-            const extraTime = -this._action.timeLeft;
-
-            this._action.call();
-            this._action = this.chooseNextAction(extraTime);
-        }
+        this.tryAddNewActions(extraTime);
     }
 
-    private chooseNextTarget(): Combatant | undefined {
+    protected chooseNextTarget(): Combatant | undefined {
+        let validTargets: Combatant[] = this.isFriendly
+            ? this._game.monsterCombatants
+            : this._game.characterCombatants;
+
+        validTargets = validTargets.filter((target) => !target.isDead);
         // TODO
-        if (this.isFriendly) {
-            return this._game.monsterCombatants[0];
-        } else {
-            return this._game.characterCombatants[0];
+        return validTargets[0];
+    }
+
+    private tryAddNewActions(extraTime: number) {
+        // TODO: handle multiple actions at the same time
+        const hasMainAction =
+            this._actions.filter(
+                (action) => action.actionType === ActionType.MAIN_ATTACK
+            ).length > 0;
+
+        if (!hasMainAction) {
+            const nextAction = this.chooseNextAction(extraTime);
+            if (nextAction) {
+                this._actions.push(nextAction);
+            }
         }
     }
 
@@ -112,18 +136,27 @@ export abstract class Combatant {
         const dodge = target.dodge;
         const hitChance = combat.hitChance(attack.attackModifier, dodge);
         if (Math.random() >= hitChance) {
-            this.lastActionResult = `${target.name} dodged.`;
+            this._actionResults.push({
+                text: `${target.name} dodged`,
+                timeLeft: ACTION_RESULT_TIME,
+            });
             return;
         }
 
         const baseDamage = attack.damage();
         const realDamage = combat.calculateDamage(baseDamage, target.armour);
         if (realDamage <= 0) {
-            this.lastActionResult = `${target.name} took no damage.`;
+            this._actionResults.push({
+                text: `${target.name} took no damage`,
+                timeLeft: ACTION_RESULT_TIME,
+            });
             return;
         }
 
-        this.lastActionResult = `${target.name} took ${realDamage} damage.`;
+        this._actionResults.push({
+            text: `${target.name} took ${realDamage} damage`,
+            timeLeft: ACTION_RESULT_TIME,
+        });
         target.damage(realDamage);
     }
 

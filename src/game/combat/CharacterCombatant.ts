@@ -5,7 +5,7 @@ import type { Character } from "../Character";
 import { ROUND_TIME, TICK_INTERVAL } from "../Constants";
 import type { Game } from "../Game";
 import { Weapon } from "../Item";
-import { Combatant, IAction } from "./Combatant";
+import { ActionType, Combatant, IAction } from "./Combatant";
 
 function ensureWeapon(item: ItemState | undefined): WeaponItemData {
     if (item === undefined) {
@@ -36,6 +36,11 @@ export class CharacterCombatant extends Combatant {
         this._mainWeapon = new Weapon(
             ensureWeapon(character._data.inventory.leftHand)
         );
+    }
+
+    public override get id(): string {
+        // TODO:
+        return "character";
     }
 
     public override get name(): string {
@@ -82,14 +87,21 @@ export class CharacterCombatant extends Combatant {
     protected override chooseNextAction(
         extraTime: number = 0
     ): IAction | undefined {
+        const target = this.chooseNextTarget();
+        if (!target) {
+            return undefined;
+        }
+
         // TODO
         const timeRequired = ROUND_TIME;
         return {
+            target,
+            actionType: ActionType.MAIN_ATTACK,
             timeRequired,
             timeLeft: Math.max(timeRequired - extraTime, TICK_INTERVAL),
             call: () => {
-                if (this._target) {
-                    this.performAttack(this._target, this._mainWeapon);
+                if (target) {
+                    this.performAttack(target, this._mainWeapon);
                 }
             },
         };

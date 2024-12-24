@@ -1,6 +1,7 @@
 import { Card, Progress, Stack, Text } from "@mantine/core";
+
 import type { Combatant } from "../../game/combat/Combatant";
-import { TICK_INTERVAL } from "../../game/Constants";
+import { ACTION_RESULT_TIME, TICK_INTERVAL } from "../../game/Constants";
 
 interface ICombatChipProps {
     combatant: Combatant;
@@ -32,19 +33,29 @@ export function CombatChip(props: ICombatChipProps) {
                     transitionDuration={200}
                     color="blue"
                 />
-                {combatant.currentAction && (
-                    <Progress
-                        value={
-                            (combatant.currentAction.timeLeft /
-                                combatant.currentAction.timeRequired) *
-                            100
-                        }
-                        size="lg"
-                        transitionDuration={TICK_INTERVAL}
-                        color="green"
-                    />
-                )}
-                <Text>{combatant.lastActionResult}</Text>
+                {combatant.currentActions.map((action) => {
+                    return (
+                        <Progress
+                            value={
+                                (action.timeLeft / action.timeRequired) * 100
+                            }
+                            size="lg"
+                            transitionDuration={TICK_INTERVAL}
+                            color="green"
+                        />
+                    );
+                })}
+                {...combatant.actionResults.toReversed().map((result, i) => {
+                    return (
+                        <Text key={i}>
+                            {result.text}{" "}
+                            {Math.round(
+                                (ACTION_RESULT_TIME - result.timeLeft) / 1000
+                            )}{" "}
+                            seconds ago
+                        </Text>
+                    );
+                })}
             </Stack>
         </Card>
     );
